@@ -12,6 +12,9 @@
   .meta { color: #aaa; font-size: 16px; }
   .contador-wrap { text-align: right; }
   .contador { font-size: 56px; font-weight: bold; color: #ffb020; line-height: 1; }
+  .zona-bloque { margin-bottom: 32px; }
+  .zona-titulo { font-size: 20px; color: #ffb020; border-bottom: 1px solid #333; padding-bottom: 8px; margin-bottom: 16px; }
+  .zona-count { background: #333; color: #fff; font-size: 13px; padding: 2px 10px; border-radius: 10px; margin-left: 8px; }
   .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
   .ticket { background: #fff; color: #1a1a2e; border-radius: 12px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
   .ticket-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
@@ -28,22 +31,26 @@
   <div class="header">
     <div>
       <h1>Panel de Depósito</h1>
-      <div class="meta">04/08/2026 — Actualizado 13:00 hs</div>
+      <div class="meta">04/08/2026 — Actualizado 13:13 hs</div>
     </div>
     <div class="contador-wrap">
       <div class="contador">1</div>
       <div class="meta">pendientes de preparar</div>
     </div>
   </div>
-  <div class="grid">
+  
+    <div class="zona-bloque">
+      <h2 class="zona-titulo">Posadas <span class="zona-count">1</span></h2>
+      <div class="grid">
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07296</div>
-        <div class="tiempo" style="background:#f39c12">59 min</div>
+        <div class="tiempo" style="background:#e74c3c">72 min</div>
       </div>
       <div class="cliente">Ingar S.A. Proobra S.A. E Hidrelco S.R.L. U. T. E.</div>
       <div class="deposito-tag">Deposito Posadas: Órdenes de entrega</div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [PAB1206] 16.9-28 / 8PR GREEN EX RT100 R1 TT</div></div>
     </div></div>
+    </div>
 </body>
 </html>
