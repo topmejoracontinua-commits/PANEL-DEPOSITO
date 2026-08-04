@@ -21,32 +21,36 @@
   .ruta-barra-fondo { background: #383858; height: 20px; border-radius: 10px; overflow: hidden; }
   .ruta-barra { height: 100%; transition: width 0.3s; }
   .ruta-detalle { font-size: 13px; color: #aaa; margin-top: 6px; }
-  .zona-bloque { margin-bottom: 32px; }
-  .zona-titulo { font-size: 20px; color: #ffb020; border-bottom: 1px solid #333; padding-bottom: 8px; margin-bottom: 16px; }
-  .zona-count { background: #333; color: #fff; font-size: 13px; padding: 2px 10px; border-radius: 10px; margin-left: 8px; }
-  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
-  .ticket { background: #fff; color: #1a1a2e; border-radius: 12px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  .tablero { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
+  .columna { background: #16162a; border-radius: 12px; padding: 12px; min-height: 200px; }
+  .columna-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid; padding-bottom: 10px; margin-bottom: 12px; }
+  .columna-titulo { font-size: 17px; font-weight: bold; }
+  .columna-count { background: #333; padding: 2px 10px; border-radius: 10px; font-size: 13px; }
+  .columna-body { display: flex; flex-direction: column; gap: 12px; }
+  .vacio { color: #666; font-size: 13px; text-align: center; padding: 20px 0; }
+  .ticket { background: #fff; color: #1a1a2e; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
   .ticket-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
-  .remito { font-size: 26px; font-weight: 900; }
-  .tiempo { color: white; font-weight: bold; padding: 4px 12px; border-radius: 16px; font-size: 14px; }
-  .cliente { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px; }
-  .tags { margin-bottom: 12px; }
-  .deposito-tag { display: inline-block; background: #eee; color: #555; font-size: 12px; padding: 2px 8px; border-radius: 8px; margin-right: 6px; }
-  .subestado-tag { display: inline-block; background: #dbe9ff; color: #1a4d8f; font-size: 12px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
-  .productos { border-top: 1px dashed #ccc; padding-top: 8px; }
-  .producto { font-size: 14px; padding: 3px 0; }
+  .remito { font-size: 20px; font-weight: 900; }
+  .tiempo { color: white; font-weight: bold; padding: 3px 10px; border-radius: 16px; font-size: 13px; }
+  .cliente { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 6px; }
+  .tags { margin-bottom: 10px; }
+  .ciudad-tag { display: inline-block; background: #eee; color: #555; font-size: 11px; padding: 2px 8px; border-radius: 8px; margin-right: 6px; }
+  .subestado-tag { display: inline-block; background: #dbe9ff; color: #1a4d8f; font-size: 11px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
+  .productos { border-top: 1px dashed #ccc; padding-top: 6px; }
+  .producto { font-size: 13px; padding: 2px 0; }
   .cant { font-weight: bold; color: #1a1a2e; }
+  @media (max-width: 1000px) { .tablero { grid-template-columns: 1fr; } }
 </style>
 </head>
 <body>
   <div class="header">
     <div>
       <h1>Panel de Depósito</h1>
-      <div class="meta">04/08/2026 — Actualizado 16:21 hs</div>
+      <div class="meta">04/08/2026 — Actualizado 16:24 hs</div>
     </div>
     <div class="contador-wrap">
-      <div class="contador">5</div>
-      <div class="meta">pendientes de preparar</div>
+      <div class="contador">20</div>
+      <div class="meta">remitos activos hoy</div>
     </div>
   </div>
   <div class="rutas-section">
@@ -58,7 +62,7 @@
       <div class="ruta-barra-fondo">
         <div class="ruta-barra" style="width:3%; background:#2ecc71"></div>
       </div>
-      <div class="ruta-detalle">0.20 m³ / 8 m³</div>
+      <div class="ruta-detalle">0.20 m³ / 8 m³ (solo disponibles)</div>
     </div>
     <div class="ruta-card">
       <div class="ruta-header">
@@ -68,7 +72,7 @@
       <div class="ruta-barra-fondo">
         <div class="ruta-barra" style="width:9%; background:#2ecc71"></div>
       </div>
-      <div class="ruta-detalle">0.70 m³ / 8 m³</div>
+      <div class="ruta-detalle">0.70 m³ / 8 m³ (solo disponibles)</div>
     </div>
     <div class="ruta-card">
       <div class="ruta-header">
@@ -76,86 +80,276 @@
         
       </div>
       <div class="ruta-barra-fondo">
-        <div class="ruta-barra" style="width:76%; background:#f39c12"></div>
+        <div class="ruta-barra" style="width:79%; background:#f39c12"></div>
       </div>
-      <div class="ruta-detalle">6.06 m³ / 8 m³</div>
+      <div class="ruta-detalle">6.34 m³ / 8 m³ (solo disponibles)</div>
     </div></div>
   
-    <div class="zona-bloque">
-      <h2 class="zona-titulo">Eldorado <span class="zona-count">1</span></h2>
-      <div class="grid">
+  <div class="tablero">
+    
+    <div class="columna">
+      <div class="columna-header" style="border-color:#e74c3c">
+        <span class="columna-titulo">Esperando stock</span>
+        <span class="columna-count">5</span>
+      </div>
+      <div class="columna-body">
     <div class="ticket">
       <div class="ticket-header">
-        <div class="remito">DePos/OUT/07300</div>
-        <div class="tiempo" style="background:#f39c12">52 min</div>
+        <div class="remito">DePos/OUT/07286</div>
+        <div class="tiempo" style="background:#e74c3c">404 min</div>
       </div>
-      <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
+      <div class="cliente">Silvera Romero Gustavo Guillermo</div>
       <div class="tags">
-        <span class="deposito-tag">Deposito Posadas: Órdenes de entrega</span>
-        <span class="subestado-tag">Sin subestado</span>
+        <span class="ciudad-tag">El Colorado</span>
+        
       </div>
-      <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-23134] 195/55R15 85V TH-161</div></div>
-    </div></div>
+      <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-46425] 275/80R22.5 149/146 L TH668 18PR TH (NW) Taco</div></div>
     </div>
-    <div class="zona-bloque">
-      <h2 class="zona-titulo">Obera <span class="zona-count">1</span></h2>
-      <div class="grid">
     <div class="ticket">
       <div class="ticket-header">
-        <div class="remito">DePos/OUT/07299</div>
-        <div class="tiempo" style="background:#e74c3c">60 min</div>
+        <div class="remito">DePos/OUT/07287</div>
+        <div class="tiempo" style="background:#e74c3c">403 min</div>
       </div>
-      <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
+      <div class="cliente">Pitsch Martin</div>
       <div class="tags">
-        <span class="deposito-tag">Deposito Posadas: Órdenes de entrega</span>
-        <span class="subestado-tag">Sin subestado</span>
+        <span class="ciudad-tag">25 De Mayo</span>
+        
       </div>
-      <div class="productos"><div class="producto"><span class="cant">14x</span> [23768400] 175/65R14 82H DAYTON DT30 </div></div>
+      <div class="productos"><div class="producto"><span class="cant">10x</span> [TH-22007] 175/70R13 82T TH-161</div><div class="producto"><span class="cant">8x</span> [TH-22021] 175/70R14 84T TH-161</div><div class="producto"><span class="cant">4x</span> [TH-21451] 185/65R14 86H TH-161</div><div class="producto"><span class="cant">4x</span> [TH-22670] 235/75R15 109S XL TH-AT802</div><div class="producto"><span class="cant">4x</span> [TH-22625] 245/70R16 107T TH-AT802</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07297</div>
+        <div class="tiempo" style="background:#e74c3c">215 min</div>
+      </div>
+      <div class="cliente">Romaniuk Pedro Antonio</div>
+      <div class="tags">
+        <span class="ciudad-tag">Villa Berthet</span>
+        
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">2x</span> [22004006] 265/60R18 110H DESTINATION LE3 (INV)</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07285</div>
+        <div class="tiempo" style="background:#e74c3c">457 min</div>
+      </div>
+      <div class="cliente">Grade Hugo Hector</div>
+      <div class="tags">
+        <span class="ciudad-tag">2 De Mayo</span>
+        
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-21932] 205/65R15 94V TH-161</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07295</div>
+        <div class="tiempo" style="background:#e74c3c">281 min</div>
+      </div>
+      <div class="cliente">Top Neumaticos S.R.L. (NO USAR), Deposito Corrientes</div>
+      <div class="tags">
+        <span class="ciudad-tag">Corrientes</span>
+        
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-22878] 205/75R16C 8PR 110/108R TH-30</div></div>
     </div></div>
     </div>
-    <div class="zona-bloque">
-      <h2 class="zona-titulo">Posadas <span class="zona-count">2</span></h2>
-      <div class="grid">
+    
+    <div class="columna">
+      <div class="columna-header" style="border-color:#f39c12">
+        <span class="columna-titulo">Disponible / Para preparar</span>
+        <span class="columna-count">5</span>
+      </div>
+      <div class="columna-body">
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07296</div>
-        <div class="tiempo" style="background:#e74c3c">260 min</div>
+        <div class="tiempo" style="background:#e74c3c">264 min</div>
       </div>
       <div class="cliente">Ingar S.A. Proobra S.A. E Hidrelco S.R.L. U. T. E.</div>
       <div class="tags">
-        <span class="deposito-tag">Deposito Posadas: Órdenes de entrega</span>
-        <span class="subestado-tag">Sin subestado</span>
+        <span class="ciudad-tag">Posadas</span>
+        
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TLI-0036] 18.4-34 12PR FIELD MASTER (R1) TT TIANLI</div></div>
     </div>
     <div class="ticket">
       <div class="ticket-header">
+        <div class="remito">DePos/OUT/07299</div>
+        <div class="tiempo" style="background:#e74c3c">64 min</div>
+      </div>
+      <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
+      <div class="tags">
+        <span class="ciudad-tag">Obera</span>
+        
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">14x</span> [23768400] 175/65R14 82H DAYTON DT30 </div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07300</div>
+        <div class="tiempo" style="background:#f39c12">55 min</div>
+      </div>
+      <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
+      <div class="tags">
+        <span class="ciudad-tag">Eldorado</span>
+        
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-23134] 195/55R15 85V TH-161</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
         <div class="remito">DePos/OUT/07302</div>
-        <div class="tiempo" style="background:#2ecc71">6 min</div>
+        <div class="tiempo" style="background:#2ecc71">9 min</div>
       </div>
       <div class="cliente">Torres E Hijos Sa</div>
       <div class="tags">
-        <span class="deposito-tag">Deposito Posadas: Órdenes de entrega</span>
-        <span class="subestado-tag">Sin subestado</span>
+        <span class="ciudad-tag">Posadas</span>
+        
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-45053] 295/80R22.5 152/149 M 18PR TH605 TH (LW) Taco </div></div>
-    </div></div>
     </div>
-    <div class="zona-bloque">
-      <h2 class="zona-titulo">Santo Tome <span class="zona-count">1</span></h2>
-      <div class="grid">
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07303</div>
-        <div class="tiempo" style="background:#2ecc71">1 min</div>
+        <div class="tiempo" style="background:#2ecc71">4 min</div>
       </div>
       <div class="cliente">Roleri Roman Hernan</div>
       <div class="tags">
-        <span class="deposito-tag">Deposito Posadas: Órdenes de entrega</span>
-        <span class="subestado-tag">Sin subestado</span>
+        <span class="ciudad-tag">Santo Tome</span>
+        
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-22670] 235/75R15 109S XL TH-AT802</div><div class="producto"><span class="cant">2x</span> [TH-22038] 185/70R14 88H TH-161</div><div class="producto"><span class="cant">4x</span> [TH-21901] 175/65R14 82T TH-161</div><div class="producto"><span class="cant">2x</span> [TH-21932] 205/65R15 94V TH-161</div><div class="producto"><span class="cant">4x</span> [TH-22953] 185/65R15 88H TH-161</div><div class="producto"><span class="cant">4x</span> [TH-20751] 175/70R13 82H TH-93</div><div class="producto"><span class="cant">5x</span> [TH-22021] 175/70R14 84T TH-161</div><div class="producto"><span class="cant">4x</span> [CSEAVQ902055516] 205/55R16 94W Q-990 SENTURY</div><div class="producto"><span class="cant">2x</span> [447234] 205/55R16 91W EU728</div><div class="producto"><span class="cant">4x</span> [TH-21963] 215/65R16 98H TH-161</div></div>
     </div></div>
     </div>
+    
+    <div class="columna">
+      <div class="columna-header" style="border-color:#2ecc71">
+        <span class="columna-titulo">Despachado</span>
+        <span class="columna-count">10</span>
+      </div>
+      <div class="columna-body">
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07288</div>
+        <div class="tiempo" style="background:#e74c3c">401 min</div>
+      </div>
+      <div class="cliente">Mouls Marcelo Javier</div>
+      <div class="tags">
+        <span class="ciudad-tag">Obera</span>
+        <span class="subestado-tag">En depósito</span>
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-21857] 195/60R15 88V TH-161</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07284</div>
+        <div class="tiempo" style="background:#e74c3c">486 min</div>
+      </div>
+      <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
+      <div class="tags">
+        <span class="ciudad-tag">Obera</span>
+        <span class="subestado-tag">En depósito</span>
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-23172] 215/55R18 99V TH-HP802</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07289</div>
+        <div class="tiempo" style="background:#e74c3c">358 min</div>
+      </div>
+      <div class="cliente">Vera Matias Daniel</div>
+      <div class="tags">
+        <span class="ciudad-tag">Posadas</span>
+        <span class="subestado-tag">En depósito</span>
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">4x</span> [450036] 215/45R16 90Y EU728 XL</div><div class="producto"><span class="cant">1x</span> [SERV00003] ALINEACION COCHE</div><div class="producto"><span class="cant">4x</span> [SERV00010] BALANCEO COCHE</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07290</div>
+        <div class="tiempo" style="background:#e74c3c">343 min</div>
+      </div>
+      <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
+      <div class="tags">
+        <span class="ciudad-tag">Eldorado</span>
+        <span class="subestado-tag">En depósito</span>
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">3x</span> [276183] 275/80R22.5 18PR 149/146L EAR539</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07291</div>
+        <div class="tiempo" style="background:#e74c3c">327 min</div>
+      </div>
+      <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
+      <div class="tags">
+        <span class="ciudad-tag">Eldorado</span>
+        <span class="subestado-tag">En depósito</span>
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">8x</span> [TH-45114] 295/80R22.5 152/149 K TH768 18PR TH (NW) Taco Mixto</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07292</div>
+        <div class="tiempo" style="background:#e74c3c">310 min</div>
+      </div>
+      <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
+      <div class="tags">
+        <span class="ciudad-tag">Eldorado</span>
+        <span class="subestado-tag">En depósito</span>
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">4x</span> [15822001] 195/55R15 85H TURANZA ER30 (INV)</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07293</div>
+        <div class="tiempo" style="background:#e74c3c">303 min</div>
+      </div>
+      <div class="cliente">Gutierrez Gustavo Alberto</div>
+      <div class="tags">
+        <span class="ciudad-tag">Goya</span>
+        <span class="subestado-tag">En depósito</span>
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">2x</span> [TLI-0036] 18.4-34 12PR FIELD MASTER (R1) TT TIANLI</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07294</div>
+        <div class="tiempo" style="background:#e74c3c">290 min</div>
+      </div>
+      <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
+      <div class="tags">
+        <span class="ciudad-tag">Obera</span>
+        <span class="subestado-tag">En depósito</span>
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">4x</span> [12810001] 245/65R17 111T DUELER H/T 684 III (INV)</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07298</div>
+        <div class="tiempo" style="background:#e74c3c">87 min</div>
+      </div>
+      <div class="cliente">Municipalidad De San Vicente</div>
+      <div class="tags">
+        <span class="ciudad-tag">San Vicente</span>
+        <span class="subestado-tag">En depósito</span>
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">2x</span> [TLI-0029] 17.5-25 16PR SUPER LOADER GRADER (G2) TL TIANLI</div></div>
+    </div>
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07301</div>
+        <div class="tiempo" style="background:#f39c12">43 min</div>
+      </div>
+      <div class="cliente">Jakow Ricardo Daniel</div>
+      <div class="tags">
+        <span class="ciudad-tag">Obera</span>
+        <span class="subestado-tag">En depósito</span>
+      </div>
+      <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-21901] 175/65R14 82T TH-161</div></div>
+    </div></div>
+    </div>
+  </div>
 </body>
 </html>
