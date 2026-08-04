@@ -12,7 +12,7 @@
   .meta { color: #aaa; font-size: 16px; }
   .contador-wrap { text-align: right; }
   .contador { font-size: 56px; font-weight: bold; color: #ffb020; line-height: 1; }
-  .rutas-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .rutas-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
   .ruta-card { background: #24243e; border-radius: 12px; padding: 16px; }
   .ruta-informativa { background: #1e2a38; }
   .ruta-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
@@ -23,6 +23,11 @@
   .ruta-barra-fondo { background: #383858; height: 20px; border-radius: 10px; overflow: hidden; }
   .ruta-barra { height: 100%; transition: width 0.3s; }
   .ruta-detalle { font-size: 13px; color: #aaa; margin-top: 6px; }
+  .pendientes-ruta { background: #3a2a1a; border: 1px solid #a05a1a; border-radius: 12px; padding: 16px; margin-bottom: 32px; }
+  .pendientes-ruta h3 { margin: 0 0 12px 0; font-size: 15px; color: #ffb020; }
+  .pendientes-ruta table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .pendientes-ruta th { text-align: left; color: #ffb020; padding: 6px 8px; border-bottom: 1px solid #a05a1a; }
+  .pendientes-ruta td { padding: 6px 8px; border-bottom: 1px solid #3a3a5a; }
   .tablero { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
   .columna { background: #16162a; border-radius: 12px; padding: 12px; min-height: 200px; }
   .columna-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid; padding-bottom: 10px; margin-bottom: 12px; }
@@ -59,12 +64,22 @@
       <div class="ruta-card">
         <div class="ruta-header">
           <span class="ruta-nombre">Clientes Posadas (S10 - Jorge)</span>
-          <span class="listo-tag">🚚 LISTO PARA VIAJAR</span>
+          
         </div>
         <div class="ruta-barra-fondo">
-          <div class="ruta-barra" style="width:100%; background:#e74c3c"></div>
+          <div class="ruta-barra" style="width:8%; background:#2ecc71"></div>
         </div>
-        <div class="ruta-detalle">6.12 m³ / 3 m³ — 3 remitos</div>
+        <div class="ruta-detalle">0.24 m³ / 3 m³ — 1 remitos</div>
+      </div>
+      <div class="ruta-card">
+        <div class="ruta-header">
+          <span class="ruta-nombre">Corrientes</span>
+          
+        </div>
+        <div class="ruta-barra-fondo">
+          <div class="ruta-barra" style="width:29%; background:#2ecc71"></div>
+        </div>
+        <div class="ruta-detalle">2.30 m³ / 8 m³ — 1 remitos</div>
       </div>
       <div class="ruta-card">
         <div class="ruta-header">
@@ -72,9 +87,9 @@
           
         </div>
         <div class="ruta-barra-fondo">
-          <div class="ruta-barra" style="width:48%; background:#2ecc71"></div>
+          <div class="ruta-barra" style="width:46%; background:#2ecc71"></div>
         </div>
-        <div class="ruta-detalle">3.87 m³ / 8 m³ — 4 remitos</div>
+        <div class="ruta-detalle">3.67 m³ / 8 m³ — 3 remitos</div>
       </div>
       <div class="ruta-card">
         <div class="ruta-header">
@@ -82,16 +97,11 @@
           
         </div>
         <div class="ruta-barra-fondo">
-          <div class="ruta-barra" style="width:40%; background:#2ecc71"></div>
+          <div class="ruta-barra" style="width:31%; background:#2ecc71"></div>
         </div>
-        <div class="ruta-detalle">3.16 m³ / 8 m³ — 6 remitos</div>
-      </div>
-    <div class="ruta-card ruta-informativa">
-      <div class="ruta-header">
-        <span class="ruta-nombre">Sin ruta asignada</span>
-      </div>
-      <div class="ruta-detalle-grande">3 remitos — 3.24 m³ acumulados</div>
-    </div></div>
+        <div class="ruta-detalle">2.46 m³ / 8 m³ — 5 remitos</div>
+      </div></div>
+  
   
   <div class="tablero">
     
@@ -104,7 +114,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07286</div>
-        <div class="tiempo" style="background:#e74c3c">445 min</div>
+        <div class="tiempo" style="background:#e74c3c">446 min</div>
       </div>
       <div class="cliente">Silvera Romero Gustavo Guillermo</div>
       <div class="tags">
@@ -184,7 +194,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07299</div>
-        <div class="tiempo" style="background:#e74c3c">105 min</div>
+        <div class="tiempo" style="background:#e74c3c">106 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -196,7 +206,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07300</div>
-        <div class="tiempo" style="background:#e74c3c">96 min</div>
+        <div class="tiempo" style="background:#e74c3c">97 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
       <div class="tags">
@@ -220,7 +230,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07303</div>
-        <div class="tiempo" style="background:#f39c12">45 min</div>
+        <div class="tiempo" style="background:#f39c12">46 min</div>
       </div>
       <div class="cliente">Roleri Roman Hernan</div>
       <div class="tags">
@@ -264,7 +274,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07284</div>
-        <div class="tiempo" style="background:#e74c3c">527 min</div>
+        <div class="tiempo" style="background:#e74c3c">528 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -276,7 +286,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07289</div>
-        <div class="tiempo" style="background:#e74c3c">399 min</div>
+        <div class="tiempo" style="background:#e74c3c">400 min</div>
       </div>
       <div class="cliente">Vera Matias Daniel</div>
       <div class="tags">
@@ -336,7 +346,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07294</div>
-        <div class="tiempo" style="background:#e74c3c">331 min</div>
+        <div class="tiempo" style="background:#e74c3c">332 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -348,7 +358,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07298</div>
-        <div class="tiempo" style="background:#e74c3c">128 min</div>
+        <div class="tiempo" style="background:#e74c3c">129 min</div>
       </div>
       <div class="cliente">Municipalidad De San Vicente</div>
       <div class="tags">
@@ -360,7 +370,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07301</div>
-        <div class="tiempo" style="background:#e74c3c">84 min</div>
+        <div class="tiempo" style="background:#e74c3c">85 min</div>
       </div>
       <div class="cliente">Jakow Ricardo Daniel</div>
       <div class="tags">
