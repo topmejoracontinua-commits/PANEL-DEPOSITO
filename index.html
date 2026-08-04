@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta http-equiv="refresh" content="300">
+<title>Panel de Depósito - Top Neumáticos</title>
+<style>
+  * { box-sizing: border-box; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #1a1a2e; margin: 0; padding: 24px; color: white; }
+  .header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+  h1 { margin: 0; font-size: 32px; }
+  .meta { color: #aaa; font-size: 16px; }
+  .contador-wrap { text-align: right; }
+  .contador { font-size: 56px; font-weight: bold; color: #ffb020; line-height: 1; }
+  .grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); gap: 16px; }
+  .ticket { background: #fff; color: #1a1a2e; border-radius: 12px; padding: 16px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  .ticket-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
+  .remito { font-size: 26px; font-weight: 900; }
+  .tiempo { color: white; font-weight: bold; padding: 4px 12px; border-radius: 16px; font-size: 14px; }
+  .cliente { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px; }
+  .deposito-tag { display: inline-block; background: #eee; color: #555; font-size: 12px; padding: 2px 8px; border-radius: 8px; margin-bottom: 12px; }
+  .productos { border-top: 1px dashed #ccc; padding-top: 8px; }
+  .producto { font-size: 14px; padding: 3px 0; }
+  .cant { font-weight: bold; color: #1a1a2e; }
+</style>
+</head>
+<body>
+  <div class="header">
+    <div>
+      <h1>Panel de Depósito</h1>
+      <div class="meta">04/08/2026 — Actualizado 12:01 hs</div>
+    </div>
+    <div class="contador-wrap">
+      <div class="contador">1</div>
+      <div class="meta">pendientes de preparar</div>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="ticket">
+      <div class="ticket-header">
+        <div class="remito">DePos/OUT/07296</div>
+        <div class="tiempo" style="background:#2ecc71">0 min</div>
+      </div>
+      <div class="cliente">Ingar S.A. Proobra S.A. E Hidrelco S.R.L. U. T. E.</div>
+      <div class="deposito-tag">Deposito Posadas: Órdenes de entrega</div>
+      <div class="productos"><div class="producto">Sin detalle de productos</div></div>
+    </div></div>
+</body>
+</html>
