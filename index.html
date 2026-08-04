@@ -12,6 +12,15 @@
   .meta { color: #aaa; font-size: 16px; }
   .contador-wrap { text-align: right; }
   .contador { font-size: 56px; font-weight: bold; color: #ffb020; line-height: 1; }
+  .rutas-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 32px; }
+  .ruta-card { background: #24243e; border-radius: 12px; padding: 16px; }
+  .ruta-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
+  .ruta-nombre { font-size: 18px; font-weight: bold; }
+  .listo-tag { background: #e74c3c; color: white; font-size: 12px; font-weight: bold; padding: 3px 10px; border-radius: 10px; animation: pulso 1.2s infinite; }
+  @keyframes pulso { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+  .ruta-barra-fondo { background: #383858; height: 20px; border-radius: 10px; overflow: hidden; }
+  .ruta-barra { height: 100%; transition: width 0.3s; }
+  .ruta-detalle { font-size: 13px; color: #aaa; margin-top: 6px; }
   .zona-bloque { margin-bottom: 32px; }
   .zona-titulo { font-size: 20px; color: #ffb020; border-bottom: 1px solid #333; padding-bottom: 8px; margin-bottom: 16px; }
   .zona-count { background: #333; color: #fff; font-size: 13px; padding: 2px 10px; border-radius: 10px; margin-left: 8px; }
@@ -21,7 +30,9 @@
   .remito { font-size: 26px; font-weight: 900; }
   .tiempo { color: white; font-weight: bold; padding: 4px 12px; border-radius: 16px; font-size: 14px; }
   .cliente { font-size: 16px; font-weight: 600; color: #333; margin-bottom: 4px; }
-  .deposito-tag { display: inline-block; background: #eee; color: #555; font-size: 12px; padding: 2px 8px; border-radius: 8px; margin-bottom: 12px; }
+  .tags { margin-bottom: 12px; }
+  .deposito-tag { display: inline-block; background: #eee; color: #555; font-size: 12px; padding: 2px 8px; border-radius: 8px; margin-right: 6px; }
+  .subestado-tag { display: inline-block; background: #dbe9ff; color: #1a4d8f; font-size: 12px; padding: 2px 8px; border-radius: 8px; font-weight: 600; }
   .productos { border-top: 1px dashed #ccc; padding-top: 8px; }
   .producto { font-size: 14px; padding: 3px 0; }
   .cant { font-weight: bold; color: #1a1a2e; }
@@ -31,13 +42,44 @@
   <div class="header">
     <div>
       <h1>Panel de Depósito</h1>
-      <div class="meta">04/08/2026 — Actualizado 16:15 hs</div>
+      <div class="meta">04/08/2026 — Actualizado 16:17 hs</div>
     </div>
     <div class="contador-wrap">
       <div class="contador">4</div>
       <div class="meta">pendientes de preparar</div>
     </div>
   </div>
+  <div class="rutas-section">
+    <div class="ruta-card">
+      <div class="ruta-header">
+        <span class="ruta-nombre">Ruta 12</span>
+        
+      </div>
+      <div class="ruta-barra-fondo">
+        <div class="ruta-barra" style="width:3%; background:#2ecc71"></div>
+      </div>
+      <div class="ruta-detalle">0.20 m³ / 8 m³</div>
+    </div>
+    <div class="ruta-card">
+      <div class="ruta-header">
+        <span class="ruta-nombre">Ruta 14</span>
+        
+      </div>
+      <div class="ruta-barra-fondo">
+        <div class="ruta-barra" style="width:9%; background:#2ecc71"></div>
+      </div>
+      <div class="ruta-detalle">0.70 m³ / 8 m³</div>
+    </div>
+    <div class="ruta-card">
+      <div class="ruta-header">
+        <span class="ruta-nombre">Sin ruta asignada</span>
+        
+      </div>
+      <div class="ruta-barra-fondo">
+        <div class="ruta-barra" style="width:74%; background:#2ecc71"></div>
+      </div>
+      <div class="ruta-detalle">5.88 m³ / 8 m³</div>
+    </div></div>
   
     <div class="zona-bloque">
       <h2 class="zona-titulo">Eldorado <span class="zona-count">1</span></h2>
@@ -45,10 +87,13 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07300</div>
-        <div class="tiempo" style="background:#f39c12">46 min</div>
+        <div class="tiempo" style="background:#f39c12">47 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
-      <div class="deposito-tag">Deposito Posadas: Órdenes de entrega</div>
+      <div class="tags">
+        <span class="deposito-tag">Deposito Posadas: Órdenes de entrega</span>
+        <span class="subestado-tag">Sin subestado</span>
+      </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-23134] 195/55R15 85V TH-161</div></div>
     </div></div>
     </div>
@@ -58,10 +103,13 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07299</div>
-        <div class="tiempo" style="background:#f39c12">55 min</div>
+        <div class="tiempo" style="background:#f39c12">56 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
-      <div class="deposito-tag">Deposito Posadas: Órdenes de entrega</div>
+      <div class="tags">
+        <span class="deposito-tag">Deposito Posadas: Órdenes de entrega</span>
+        <span class="subestado-tag">Sin subestado</span>
+      </div>
       <div class="productos"><div class="producto"><span class="cant">14x</span> [23768400] 175/65R14 82H DAYTON DT30 </div></div>
     </div></div>
     </div>
@@ -71,19 +119,25 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07296</div>
-        <div class="tiempo" style="background:#e74c3c">255 min</div>
+        <div class="tiempo" style="background:#e74c3c">256 min</div>
       </div>
       <div class="cliente">Ingar S.A. Proobra S.A. E Hidrelco S.R.L. U. T. E.</div>
-      <div class="deposito-tag">Deposito Posadas: Órdenes de entrega</div>
+      <div class="tags">
+        <span class="deposito-tag">Deposito Posadas: Órdenes de entrega</span>
+        <span class="subestado-tag">Sin subestado</span>
+      </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TLI-0036] 18.4-34 12PR FIELD MASTER (R1) TT TIANLI</div></div>
     </div>
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07302</div>
-        <div class="tiempo" style="background:#2ecc71">0 min</div>
+        <div class="tiempo" style="background:#2ecc71">2 min</div>
       </div>
       <div class="cliente">Torres E Hijos Sa</div>
-      <div class="deposito-tag">Deposito Posadas: Órdenes de entrega</div>
+      <div class="tags">
+        <span class="deposito-tag">Deposito Posadas: Órdenes de entrega</span>
+        <span class="subestado-tag">Sin subestado</span>
+      </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-45053] 295/80R22.5 152/149 M 18PR TH605 TH (LW) Taco </div></div>
     </div></div>
     </div>
