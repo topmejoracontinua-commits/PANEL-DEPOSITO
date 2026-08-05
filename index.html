@@ -15,11 +15,19 @@
     background-attachment: fixed;
     min-height: 100vh;
   }
-  .header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
+  .header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 16px; flex-wrap: wrap; gap: 12px; }
   h1 { margin: 0; font-size: 32px; }
   .meta { color: #aaa; font-size: 16px; }
   .contador-wrap { text-align: right; }
   .contador { font-size: 56px; font-weight: bold; color: #ffb020; line-height: 1; }
+  .buscador-wrap { margin-bottom: 24px; }
+  .buscador-input {
+    width: 100%; max-width: 480px; padding: 12px 16px; font-size: 16px;
+    border-radius: 10px; border: 2px solid #383858; background: rgba(255,255,255,0.95);
+    color: #1a1a2e; outline: none;
+  }
+  .buscador-input:focus { border-color: #ffb020; }
+  .buscador-resultado { color: #ffb020; font-size: 13px; margin-top: 6px; display: none; }
   .rutas-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
   .ruta-card { background: rgba(36,36,62,0.9); border-radius: 12px; padding: 16px; backdrop-filter: blur(4px); }
   .ruta-informativa { background: rgba(30,42,56,0.9); }
@@ -44,6 +52,8 @@
   .columna-body { display: flex; flex-direction: column; gap: 12px; }
   .vacio { color: #666; font-size: 13px; text-align: center; padding: 20px 0; }
   .ticket { background: #fff; color: #1a1a2e; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
+  .ticket.oculto { display: none; }
+  .ticket.resaltado { outline: 3px solid #ffb020; }
   .ticket-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .remito { font-size: 20px; font-weight: 900; }
   .tiempo { color: white; font-weight: bold; padding: 3px 10px; border-radius: 16px; font-size: 13px; white-space: nowrap; }
@@ -61,12 +71,16 @@
   <div class="header">
     <div>
       <h1>Panel de Depósito</h1>
-      <div class="meta">05/08/2026 — Actualizado 13:38 hs</div>
+      <div class="meta">05/08/2026 — Actualizado 13:41 hs</div>
     </div>
     <div class="contador-wrap">
       <div class="contador">73</div>
       <div class="meta">remitos activos hoy</div>
     </div>
+  </div>
+  <div class="buscador-wrap">
+    <input type="text" id="buscadorInput" class="buscador-input" placeholder="🔍 Buscar por medida, marca, remito o cliente (ej: 295/80R22.5)" oninput="filtrarPanel()">
+    <div id="buscadorResultado" class="buscador-resultado"></div>
   </div>
   <div class="rutas-section">
       <div class="ruta-card">
@@ -140,7 +154,7 @@
         <span class="columna-count">15</span>
       </div>
       <div class="columna-body">
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07286 silvera romero gustavo guillermo el colorado [th-46425] 275/80r22.5 149/146 l th668 18pr th (nw) taco">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07286</div>
         <div class="tiempo" style="background:#e74c3c">1d 4h</div>
@@ -152,7 +166,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-46425] 275/80R22.5 149/146 L TH668 18PR TH (NW) Taco</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07287 pitsch martin 25 de mayo [th-22007] 175/70r13 82t th-161 [th-22021] 175/70r14 84t th-161 [th-21451] 185/65r14 86h th-161 [th-22670] 235/75r15 109s xl th-at802 [th-22625] 245/70r16 107t th-at802">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07287</div>
         <div class="tiempo" style="background:#e74c3c">1d 4h</div>
@@ -164,7 +178,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">10x</span> [TH-22007] 175/70R13 82T TH-161</div><div class="producto"><span class="cant">8x</span> [TH-22021] 175/70R14 84T TH-161</div><div class="producto"><span class="cant">4x</span> [TH-21451] 185/65R14 86H TH-161</div><div class="producto"><span class="cant">4x</span> [TH-22670] 235/75R15 109S XL TH-AT802</div><div class="producto"><span class="cant">4x</span> [TH-22625] 245/70R16 107T TH-AT802</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07249 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [th-22007] 175/70r13 82t th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07249</div>
         <div class="tiempo" style="background:#e74c3c">2d 5h</div>
@@ -176,7 +190,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">10x</span> [TH-22007] 175/70R13 82T TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07253 aromi jose gustavo mburucuya [th-46487] 7.50r16lt 16pr 125/121l th901(7.50-16) mixta">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07253</div>
         <div class="tiempo" style="background:#e74c3c">2d 4h</div>
@@ -188,7 +202,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-46487] 7.50R16LT 16PR 125/121L TH901(7.50-16) Mixta</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07297 romaniuk pedro antonio villa berthet [22004006] 265/60r18 110h destination le3 (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07297</div>
         <div class="tiempo" style="background:#e74c3c">1d 1h</div>
@@ -200,7 +214,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [22004006] 265/60R18 110H DESTINATION LE3 (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07262 transporte piscis srl posadas [th-45046] 295/80r22.5 152/149 m 18pr th602 th (lw) lisa">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07262</div>
         <div class="tiempo" style="background:#e74c3c">2d 3h</div>
@@ -212,7 +226,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">6x</span> [TH-45046] 295/80R22.5 152/149 M 18PR TH602 TH (LW) Lisa</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07271 fernandez carlos daniel riachuelo [th-46425] 275/80r22.5 149/146 l th668 18pr th (nw) taco">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07271</div>
         <div class="tiempo" style="background:#e74c3c">2d 1h</div>
@@ -224,7 +238,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-46425] 275/80R22.5 149/146 L TH668 18PR TH (NW) Taco</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07276 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [th-45046] 295/80r22.5 152/149 m 18pr th602 th (lw) lisa">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07276</div>
         <div class="tiempo" style="background:#e74c3c">1d 21h</div>
@@ -236,7 +250,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-45046] 295/80R22.5 152/149 M 18PR TH602 TH (LW) Lisa</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07280 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [th-22007] 175/70r13 82t th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07280</div>
         <div class="tiempo" style="background:#e74c3c">1d 21h</div>
@@ -248,7 +262,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-22007] 175/70R13 82T TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07285 grade hugo hector 2 de mayo [th-21932] 205/65r15 94v th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07285</div>
         <div class="tiempo" style="background:#e74c3c">1d 5h</div>
@@ -260,7 +274,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-21932] 205/65R15 94V TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07295 top neumaticos s.r.l. (no usar), deposito corrientes corrientes [th-22878] 205/75r16c 8pr 110/108r th-30">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07295</div>
         <div class="tiempo" style="background:#e74c3c">1d 2h</div>
@@ -272,10 +286,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-22878] 205/75R16C 8PR 110/108R TH-30</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07314 roleri roman hernan santo tome [th-22670] 235/75r15 109s xl th-at802 [th-22038] 185/70r14 88h th-161 [th-21932] 205/65r15 94v th-161 [th-22953] 185/65r15 88h th-161 [th-22021] 175/70r14 84t th-161 [447234] 205/55r16 91w eu728 [th-21963] 215/65r16 98h th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07314</div>
-        <div class="tiempo" style="background:#f39c12">3h 22m</div>
+        <div class="tiempo" style="background:#f39c12">3h 25m</div>
       </div>
       <div class="cliente">Roleri Roman Hernan</div>
       <div class="tags">
@@ -284,10 +298,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-22670] 235/75R15 109S XL TH-AT802</div><div class="producto"><span class="cant">2x</span> [TH-22038] 185/70R14 88H TH-161</div><div class="producto"><span class="cant">2x</span> [TH-21932] 205/65R15 94V TH-161</div><div class="producto"><span class="cant">4x</span> [TH-22953] 185/65R15 88H TH-161</div><div class="producto"><span class="cant">5x</span> [TH-22021] 175/70R14 84T TH-161</div><div class="producto"><span class="cant">1x</span> [447234] 205/55R16 91W EU728</div><div class="producto"><span class="cant">4x</span> [TH-21963] 215/65R16 98H TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07322 la estacion srl gobernador roca [th-22953] 185/65r15 88h th-161 [th-22632] 255/70r16 111t th-at802">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07322</div>
-        <div class="tiempo" style="background:#f39c12">2h 8m</div>
+        <div class="tiempo" style="background:#f39c12">2h 11m</div>
       </div>
       <div class="cliente">La Estación srl</div>
       <div class="tags">
@@ -296,10 +310,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">5x</span> [TH-22953] 185/65R15 88H TH-161</div><div class="producto"><span class="cant">2x</span> [TH-22632] 255/70R16 111T TH-AT802</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07308 zeiter alberto sebastian ruiz de montoya [th-22953] 185/65r15 88h th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07308</div>
-        <div class="tiempo" style="background:#f39c12">3h 38m</div>
+        <div class="tiempo" style="background:#f39c12">3h 41m</div>
       </div>
       <div class="cliente">Zeiter Alberto Sebastian</div>
       <div class="tags">
@@ -308,10 +322,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-22953] 185/65R15 88H TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07324 pitsch martin 25 de mayo [th-21857] 195/60r15 88v th-161 [th-21451] 185/65r14 86h th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07324</div>
-        <div class="tiempo" style="background:#2ecc71">48 min</div>
+        <div class="tiempo" style="background:#2ecc71">51 min</div>
       </div>
       <div class="cliente">Pitsch Martin</div>
       <div class="tags">
@@ -336,10 +350,10 @@
         <span class="columna-count">58</span>
       </div>
       <div class="columna-body">
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07251 bloch ricardo san vicente [th-21857] 195/60r15 88v th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07251</div>
-        <div class="tiempo" style="background:#e74c3c">2d 4h</div>
+        <div class="tiempo" style="background:#e74c3c">2d 5h</div>
       </div>
       <div class="cliente">Bloch Ricardo</div>
       <div class="tags">
@@ -348,10 +362,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">10x</span> [TH-21857] 195/60R15 88V TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07248 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [276534] 295/80r22.5 esr579 18pr 152/149m">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07248</div>
-        <div class="tiempo" style="background:#e74c3c">2d 5h</div>
+        <div class="tiempo" style="background:#e74c3c">2d 6h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -360,7 +374,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [276534] 295/80R22.5 ESR579 18PR 152/149M</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07250 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [th-23134] 195/55r15 85v th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07250</div>
         <div class="tiempo" style="background:#e74c3c">2d 5h</div>
@@ -372,7 +386,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-23134] 195/55R15 85V TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07252 gomez hector rito corrientes [th-45886] 295/80r22.5 152/149 m 18pr th902 th (lw)  mixto">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07252</div>
         <div class="tiempo" style="background:#e74c3c">2d 4h</div>
@@ -384,7 +398,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-45886] 295/80R22.5 152/149 M 18PR TH902 TH (LW)  Mixto</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07254 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top posadas posadas [th-22946] 185/60r15 84h th-161 [23845400] 205/55r16 91v dayton dt30  [th-23134] 195/55r15 85v th-161 [16745001] 175/65r14 82t f-700">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07254</div>
         <div class="tiempo" style="background:#e74c3c">2d 4h</div>
@@ -396,7 +410,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-22946] 185/60R15 84H TH-161</div><div class="producto"><span class="cant">3x</span> [23845400] 205/55R16 91V DAYTON DT30 </div><div class="producto"><span class="cant">6x</span> [TH-23134] 195/55R15 85V TH-161</div><div class="producto"><span class="cant">8x</span> [16745001] 175/65R14 82T F-700 </div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07255 robert bosch argentina industrial sa san isidro [15003001] 175/65r14 86t multihawk  [serv00003] alineacion coche [serv00010] balanceo coche">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07255</div>
         <div class="tiempo" style="background:#e74c3c">2d 4h</div>
@@ -408,7 +422,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [15003001] 175/65R14 86T MULTIHAWK </div><div class="producto"><span class="cant">1x</span> [SERV00003] ALINEACION COCHE</div><div class="producto"><span class="cant">4x</span> [SERV00010] BALANCEO COCHE</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07264 kloster jorge luis juan jose castelli [tli-0037] 18.4-34 16pr super extra woodland premium (st) tt tianli - 51mm">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07264</div>
         <div class="tiempo" style="background:#e74c3c">2d 2h</div>
@@ -420,7 +434,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">1x</span> [TLI-0037] 18.4-34 16PR SUPER EXTRA WOODLAND PREMIUM (ST) TT TIANLI - 51MM</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07258 kloster jorge luis juan jose castelli [tli-0037] 18.4-34 16pr super extra woodland premium (st) tt tianli - 51mm">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07258</div>
         <div class="tiempo" style="background:#e74c3c">2d 3h</div>
@@ -432,7 +446,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">5x</span> [TLI-0037] 18.4-34 16PR SUPER EXTRA WOODLAND PREMIUM (ST) TT TIANLI - 51MM</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07265 kloster jorge luis juan jose castelli [18594006] 205/55r17 91v turanza t005 (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07265</div>
         <div class="tiempo" style="background:#e74c3c">2d 2h</div>
@@ -444,7 +458,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">3x</span> [18594006] 205/55R17 91V TURANZA T005 (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07259 kloster jorge luis juan jose castelli [19813006] 225/50r18 95v alenza 001 (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07259</div>
         <div class="tiempo" style="background:#e74c3c">2d 3h</div>
@@ -456,7 +470,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">1x</span> [19813006] 225/50R18 95V ALENZA 001 (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07266 romaniuk pedro antonio villa berthet [22004006] 265/60r18 110h destination le3 (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07266</div>
         <div class="tiempo" style="background:#e74c3c">2d 2h</div>
@@ -468,7 +482,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [22004006] 265/60R18 110H DESTINATION LE3 (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07260 romaniuk pedro antonio villa berthet [13464001] 245/70r16 111q destination m/t 23   (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07260</div>
         <div class="tiempo" style="background:#e74c3c">2d 3h</div>
@@ -480,7 +494,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [13464001] 245/70R16 111Q DESTINATION M/T 23   (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07261 de misiones srl santo tome [23847400] 185/65r15 88h dayton dt30  [serv00010] balanceo coche [serv00003] alineacion coche">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07261</div>
         <div class="tiempo" style="background:#e74c3c">2d 3h</div>
@@ -492,7 +506,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [23847400] 185/65R15 88H DAYTON DT30 </div><div class="producto"><span class="cant">4x</span> [SERV00010] BALANCEO COCHE</div><div class="producto"><span class="cant">1x</span> [SERV00003] ALINEACION COCHE</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07263 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [th-44919] 295/80r22.5 152/149 m th121 18pr th (nw) lisa ruta">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07263</div>
         <div class="tiempo" style="background:#e74c3c">2d 2h</div>
@@ -504,7 +518,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-44919] 295/80R22.5 152/149 M TH121 18PR TH (NW) Lisa Ruta</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07269 top neumaticos s.r.l. (no usar), deposito corrientes corrientes [21970001] 215/65r16 102h xl destination le3 nrft (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07269</div>
         <div class="tiempo" style="background:#e74c3c">2d 2h</div>
@@ -516,7 +530,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [21970001] 215/65R16 102H XL DESTINATION LE3 NRFT (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07267 top neumaticos s.r.l. (no usar), deposito corrientes corrientes [16138001] 245/70r16 111t dueler a/t revo 2 (inv) [18812001] 255/70r17 dueler a/t 693 112t (inv) [19279001] 225/70r17 108t dueler a/t revo 2 (inv) [20012001] 265/70r16 112t destination atx (inv) [19954001] 205/65r15 94t destination atx (inv) [19309001] 265/65r17 112t destination atx (inv) [10594001] 205/55r16 91v turanza er300 (inv) [15822001] 195/55r15 85h turanza er30 (inv) [19294001] 195/55r15 85h f-700 (inv) [18731006] 185/65r15 88h f-700  [19295001] 185/60r15 84h f-700  (inv) [16968001] 175/70r14 84t f-700  [11578001] 265/65r17 112s dueler h/t 684 ii (inv) [18565006] 185/60r15 84h f-600  (inv) [15833001] 175/65r14 82t f-600">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07267</div>
         <div class="tiempo" style="background:#e74c3c">2d 2h</div>
@@ -528,7 +542,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">8x</span> [16138001] 245/70R16 111T DUELER A/T REVO 2 (INV)</div><div class="producto"><span class="cant">4x</span> [18812001] 255/70R17 Dueler A/T 693 112T (INV)</div><div class="producto"><span class="cant">8x</span> [19279001] 225/70R17 108T DUELER A/T REVO 2 (INV)</div><div class="producto"><span class="cant">8x</span> [20012001] 265/70R16 112T DESTINATION ATX (INV)</div><div class="producto"><span class="cant">4x</span> [19954001] 205/65R15 94T DESTINATION ATX (INV)</div><div class="producto"><span class="cant">9x</span> [19309001] 265/65R17 112T DESTINATION ATX (INV)</div><div class="producto"><span class="cant">10x</span> [10594001] 205/55R16 91V TURANZA ER300 (INV)</div><div class="producto"><span class="cant">4x</span> [15822001] 195/55R15 85H TURANZA ER30 (INV)</div><div class="producto"><span class="cant">8x</span> [19294001] 195/55R15 85H F-700 (INV)</div><div class="producto"><span class="cant">20x</span> [18731006] 185/65R15 88H F-700 </div><div class="producto"><span class="cant">8x</span> [19295001] 185/60R15 84H F-700  (INV)</div><div class="producto"><span class="cant">8x</span> [16968001] 175/70R14 84T F-700 </div><div class="producto"><span class="cant">14x</span> [11578001] 265/65R17 112S DUELER H/T 684 II (INV)</div><div class="producto"><span class="cant">8x</span> [18565006] 185/60R15 84H F-600  (INV)</div><div class="producto"><span class="cant">8x</span> [15833001] 175/65R14 82T F-600</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07268 lkf srl fontana [th-44919] 295/80r22.5 152/149 m th121 18pr th (nw) lisa ruta">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07268</div>
         <div class="tiempo" style="background:#e74c3c">2d 2h</div>
@@ -540,7 +554,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">12x</span> [TH-44919] 295/80R22.5 152/149 M TH121 18PR TH (NW) Lisa Ruta</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07270 top neumaticos s.r.l. (no usar), deposito corrientes corrientes [th-20751] 175/70r13 82h th-93">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07270</div>
         <div class="tiempo" style="background:#e74c3c">2d 2h</div>
@@ -552,7 +566,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">8x</span> [TH-20751] 175/70R13 82H TH-93</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07272 dona elena s.a. gobernador roca [276534] 295/80r22.5 esr579 18pr 152/149m">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07272</div>
         <div class="tiempo" style="background:#e74c3c">2d</div>
@@ -564,7 +578,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">12x</span> [276534] 295/80R22.5 ESR579 18PR 152/149M</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07273 mh turismo srl posadas [276534] 295/80r22.5 esr579 18pr 152/149m">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07273</div>
         <div class="tiempo" style="background:#e74c3c">1d 23h</div>
@@ -576,7 +590,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">8x</span> [276534] 295/80R22.5 ESR579 18PR 152/149M</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07274 mh turismo srl posadas [16577002] 295/80r22.5 152/148m 16 fd663 ii">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07274</div>
         <div class="tiempo" style="background:#e74c3c">1d 23h</div>
@@ -588,7 +602,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [16577002] 295/80R22.5 152/148M 16 FD663 II</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07275 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top posadas posadas [tli-0049] 23.5-25 20pr t318 (l3) tt tianli">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07275</div>
         <div class="tiempo" style="background:#e74c3c">1d 23h</div>
@@ -600,7 +614,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TLI-0049] 23.5-25 20PR T318 (L3) TT TIANLI</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07277 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top posadas posadas [th-21802] 205/55r16 91v th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07277</div>
         <div class="tiempo" style="background:#e74c3c">1d 21h</div>
@@ -612,7 +626,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">3x</span> [TH-21802] 205/55R16 91V TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07279 la estacion srl gobernador roca [sf-8474] 225/75r16c 12pr 121/120r sf-05">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07279</div>
         <div class="tiempo" style="background:#e74c3c">1d 21h</div>
@@ -624,7 +638,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">6x</span> [SF-8474] 225/75R16C 12PR 121/120R SF-05</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07288 mouls marcelo javier obera [th-21857] 195/60r15 88v th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07288</div>
         <div class="tiempo" style="background:#e74c3c">1d 4h</div>
@@ -636,10 +650,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-21857] 195/60R15 88V TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07281 mouls marcelo javier obera [th-22946] 185/60r15 84h th-161 [th-21901] 175/65r14 82t th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07281</div>
-        <div class="tiempo" style="background:#e74c3c">1d 20h</div>
+        <div class="tiempo" style="background:#e74c3c">1d 21h</div>
       </div>
       <div class="cliente">Mouls Marcelo Javier</div>
       <div class="tags">
@@ -648,7 +662,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-22946] 185/60R15 84H TH-161</div><div class="producto"><span class="cant">2x</span> [TH-21901] 175/65R14 82T TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07282 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [18580006] 185/65r15 88h ecopia ep150((p)) (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07282</div>
         <div class="tiempo" style="background:#e74c3c">1d 20h</div>
@@ -660,7 +674,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [18580006] 185/65R15 88H ECOPIA EP150((P)) (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07283 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [th-122847] 225/70r15c 112/110r th-30">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07283</div>
         <div class="tiempo" style="background:#e74c3c">1d 19h</div>
@@ -672,7 +686,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TH-122847] 225/70R15C 112/110R TH-30</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07284 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [th-23172] 215/55r18 99v th-hp802">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07284</div>
         <div class="tiempo" style="background:#e74c3c">1d 5h</div>
@@ -684,7 +698,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-23172] 215/55R18 99V TH-HP802</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07289 vera matias daniel posadas [450036] 215/45r16 90y eu728 xl [serv00003] alineacion coche [serv00010] balanceo coche">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07289</div>
         <div class="tiempo" style="background:#e74c3c">1d 3h</div>
@@ -696,7 +710,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [450036] 215/45R16 90Y EU728 XL</div><div class="producto"><span class="cant">1x</span> [SERV00003] ALINEACION COCHE</div><div class="producto"><span class="cant">4x</span> [SERV00010] BALANCEO COCHE</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07290 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top eldorado eldorado [276183] 275/80r22.5 18pr 149/146l ear539">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07290</div>
         <div class="tiempo" style="background:#e74c3c">1d 3h</div>
@@ -708,7 +722,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">3x</span> [276183] 275/80R22.5 18PR 149/146L EAR539</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07291 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top eldorado eldorado [th-45114] 295/80r22.5 152/149 k th768 18pr th (nw) taco mixto">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07291</div>
         <div class="tiempo" style="background:#e74c3c">1d 3h</div>
@@ -720,7 +734,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">8x</span> [TH-45114] 295/80R22.5 152/149 K TH768 18PR TH (NW) Taco Mixto</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07292 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top eldorado eldorado [15822001] 195/55r15 85h turanza er30 (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07292</div>
         <div class="tiempo" style="background:#e74c3c">1d 2h</div>
@@ -732,7 +746,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [15822001] 195/55R15 85H TURANZA ER30 (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07293 gutierrez gustavo alberto goya [tli-0036] 18.4-34 12pr field master (r1) tt tianli">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07293</div>
         <div class="tiempo" style="background:#e74c3c">1d 2h</div>
@@ -744,7 +758,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TLI-0036] 18.4-34 12PR FIELD MASTER (R1) TT TIANLI</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07294 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [12810001] 245/65r17 111t dueler h/t 684 iii (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07294</div>
         <div class="tiempo" style="background:#e74c3c">1d 2h</div>
@@ -756,7 +770,7 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [12810001] 245/65R17 111T DUELER H/T 684 III (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07296 ingar s.a. proobra s.a. e hidrelco s.r.l. u. t. e. posadas [tli-0036] 18.4-34 12pr field master (r1) tt tianli">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07296</div>
         <div class="tiempo" style="background:#e74c3c">1d 2h</div>
@@ -768,10 +782,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TLI-0036] 18.4-34 12PR FIELD MASTER (R1) TT TIANLI</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07298 municipalidad de san vicente san vicente [tli-0029] 17.5-25 16pr super loader grader (g2) tl tianli">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07298</div>
-        <div class="tiempo" style="background:#f39c12">22h 41m</div>
+        <div class="tiempo" style="background:#f39c12">22h 44m</div>
       </div>
       <div class="cliente">Municipalidad De San Vicente</div>
       <div class="tags">
@@ -780,10 +794,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [TLI-0029] 17.5-25 16PR SUPER LOADER GRADER (G2) TL TIANLI</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07299 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [23768400] 175/65r14 82h dayton dt30">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07299</div>
-        <div class="tiempo" style="background:#f39c12">22h 18m</div>
+        <div class="tiempo" style="background:#f39c12">22h 21m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -792,10 +806,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">14x</span> [23768400] 175/65R14 82H DAYTON DT30 </div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07300 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top eldorado eldorado [th-23134] 195/55r15 85v th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07300</div>
-        <div class="tiempo" style="background:#f39c12">22h 9m</div>
+        <div class="tiempo" style="background:#f39c12">22h 12m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
       <div class="tags">
@@ -804,10 +818,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-23134] 195/55R15 85V TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07302 torres e hijos sa posadas [th-45053] 295/80r22.5 152/149 m 18pr th605 th (lw) taco">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07302</div>
-        <div class="tiempo" style="background:#f39c12">21h 23m</div>
+        <div class="tiempo" style="background:#f39c12">21h 26m</div>
       </div>
       <div class="cliente">Torres E Hijos Sa</div>
       <div class="tags">
@@ -816,10 +830,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-45053] 295/80R22.5 152/149 M 18PR TH605 TH (LW) Taco </div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07303 roleri roman hernan santo tome [th-21901] 175/65r14 82t th-161 [th-20751] 175/70r13 82h th-93 [cseavq902055516] 205/55r16 94w q-990 sentury [447234] 205/55r16 91w eu728">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07303</div>
-        <div class="tiempo" style="background:#f39c12">21h 18m</div>
+        <div class="tiempo" style="background:#f39c12">21h 21m</div>
       </div>
       <div class="cliente">Roleri Roman Hernan</div>
       <div class="tags">
@@ -828,10 +842,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-21901] 175/65R14 82T TH-161</div><div class="producto"><span class="cant">4x</span> [TH-20751] 175/70R13 82H TH-93</div><div class="producto"><span class="cant">4x</span> [CSEAVQ902055516] 205/55R16 94W Q-990 SENTURY</div><div class="producto"><span class="cant">1x</span> [447234] 205/55R16 91W EU728</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07315 la estacion srl gobernador roca [th-21468] 195/65r15 91v th-161 [th-21437] 205/60r16 92v th-161 [th-21475] 165/70r13 79t th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07315</div>
-        <div class="tiempo" style="background:#f39c12">3h 21m</div>
+        <div class="tiempo" style="background:#f39c12">3h 24m</div>
       </div>
       <div class="cliente">La Estación srl</div>
       <div class="tags">
@@ -840,10 +854,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">3x</span> [TH-21468] 195/65R15 91V TH-161</div><div class="producto"><span class="cant">2x</span> [TH-21437] 205/60R16 92V TH-161</div><div class="producto"><span class="cant">2x</span> [TH-21475] 165/70R13 79T TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07304 la estacion srl gobernador roca [th-20751] 175/70r13 82h th-93">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07304</div>
-        <div class="tiempo" style="background:#f39c12">21h 1m</div>
+        <div class="tiempo" style="background:#f39c12">21h 4m</div>
       </div>
       <div class="cliente">La Estación srl</div>
       <div class="tags">
@@ -852,10 +866,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">8x</span> [TH-20751] 175/70R13 82H TH-93</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07305 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top posadas posadas [108234] 225/65r16 ling long [108232] 205/75r16 h188 westlake [108233] 215/75r15 hankook">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07305</div>
-        <div class="tiempo" style="background:#f39c12">4h 58m</div>
+        <div class="tiempo" style="background:#f39c12">5h 1m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP POSADAS</div>
       <div class="tags">
@@ -864,10 +878,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [108234] 225/65R16 LING LONG</div><div class="producto"><span class="cant">6x</span> [108232] 205/75R16 H188 WESTLAKE</div><div class="producto"><span class="cant">6x</span> [108233] 215/75R15 HANKOOK</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07306 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [21030002] 215/75r17.5 126/124l fs538 classic">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07306</div>
-        <div class="tiempo" style="background:#f39c12">4h 28m</div>
+        <div class="tiempo" style="background:#f39c12">4h 31m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -876,10 +890,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [21030002] 215/75R17.5 126/124L FS538 Classic</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07307 stefan hector enrique ruiz de montoya [di-1777] 7.50-16 p/ltr 75 a camara">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07307</div>
-        <div class="tiempo" style="background:#f39c12">3h 46m</div>
+        <div class="tiempo" style="background:#f39c12">3h 49m</div>
       </div>
       <div class="cliente">Stefan Hector Enrique</div>
       <div class="tags">
@@ -888,10 +902,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">1x</span> [DI-1777] 7.50-16 P/LTR 75 A CAMARA</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07309 gonzalez jose ramon san pedro [th-23134] 195/55r15 85v th-161">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07309</div>
-        <div class="tiempo" style="background:#f39c12">3h 37m</div>
+        <div class="tiempo" style="background:#f39c12">3h 40m</div>
       </div>
       <div class="cliente">Gonzalez Jose Ramon</div>
       <div class="tags">
@@ -900,10 +914,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-23134] 195/55R15 85V TH-161</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07310 gonzalez jose ramon san pedro [445391] 215/55r16 97w eu72 xl">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07310</div>
-        <div class="tiempo" style="background:#f39c12">3h 37m</div>
+        <div class="tiempo" style="background:#f39c12">3h 40m</div>
       </div>
       <div class="cliente">Gonzalez Jose Ramon</div>
       <div class="tags">
@@ -912,10 +926,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [445391] 215/55R16 97W EU72 XL</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07311 rojas aguedo hernan santo tome [th-45053] 295/80r22.5 152/149 m 18pr th605 th (lw) taco">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07311</div>
-        <div class="tiempo" style="background:#f39c12">3h 33m</div>
+        <div class="tiempo" style="background:#f39c12">3h 36m</div>
       </div>
       <div class="cliente">Rojas Aguedo Hernan</div>
       <div class="tags">
@@ -924,10 +938,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [TH-45053] 295/80R22.5 152/149 M 18PR TH605 TH (LW) Taco </div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07312 expreso del norte srl charata [275872] 385/65r22.5 20pr 160k egt66">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07312</div>
-        <div class="tiempo" style="background:#f39c12">3h 32m</div>
+        <div class="tiempo" style="background:#f39c12">3h 35m</div>
       </div>
       <div class="cliente">Expreso Del Norte SRL</div>
       <div class="tags">
@@ -936,10 +950,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">4x</span> [275872] 385/65R22.5 20PR 160K EGT66</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07313 municipalidad de san pedro san pedro [6.985.8613] 13.00-24 tg / 12 pr tlh 753 camso">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07313</div>
-        <div class="tiempo" style="background:#f39c12">3h 26m</div>
+        <div class="tiempo" style="background:#f39c12">3h 29m</div>
       </div>
       <div class="cliente">Municipalidad De San Pedro</div>
       <div class="tags">
@@ -948,10 +962,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [6.985.8613] 13.00-24 TG / 12 PR TLH 753 CAMSO</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07316 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top eldorado eldorado [18671200] 215/70r16c 108/106t duravis r660a (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07316</div>
-        <div class="tiempo" style="background:#f39c12">3h 14m</div>
+        <div class="tiempo" style="background:#f39c12">3h 17m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
       <div class="tags">
@@ -960,10 +974,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [18671200] 215/70R16C 108/106T DURAVIS R660A (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07317 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [23847400] 185/65r15 88h dayton dt30">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07317</div>
-        <div class="tiempo" style="background:#f39c12">3h 6m</div>
+        <div class="tiempo" style="background:#f39c12">3h 9m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -972,10 +986,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">8x</span> [23847400] 185/65R15 88H DAYTON DT30 </div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07318 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top eldorado eldorado [23848400] 205/65r15 94h dayton dt30">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07318</div>
-        <div class="tiempo" style="background:#f39c12">2h 45m</div>
+        <div class="tiempo" style="background:#f39c12">2h 48m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
       <div class="tags">
@@ -984,10 +998,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">6x</span> [23848400] 205/65R15 94H DAYTON DT30 </div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07320 top neumaticos s.r.l. (no usar), deposito corrientes corrientes [19813006] 225/50r18 95v alenza 001 (inv)">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07320</div>
-        <div class="tiempo" style="background:#f39c12">2h 40m</div>
+        <div class="tiempo" style="background:#f39c12">2h 43m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), Deposito Corrientes</div>
       <div class="tags">
@@ -996,10 +1010,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">1x</span> [19813006] 225/50R18 95V ALENZA 001 (INV)</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07319 top neumaticos s.r.l. (no usar), top neumaticos s.r.l., top obera obera [16911001] 185/65r14 86t fuzion">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07319</div>
-        <div class="tiempo" style="background:#f39c12">2h 40m</div>
+        <div class="tiempo" style="background:#f39c12">2h 43m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -1008,10 +1022,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">8x</span> [16911001] 185/65R14 86T FUZION</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07323 pitsch martin 25 de mayo [pab5812] 7.50-16 / 8pr green ex ft1 f2 tl">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07323</div>
-        <div class="tiempo" style="background:#f39c12">1h 4m</div>
+        <div class="tiempo" style="background:#f39c12">1h 7m</div>
       </div>
       <div class="cliente">Pitsch Martin</div>
       <div class="tags">
@@ -1020,10 +1034,10 @@
       </div>
       <div class="productos"><div class="producto"><span class="cant">2x</span> [PAB5812] 7.50-16 / 8PR GREEN EX FT1 F2 TL</div></div>
     </div>
-    <div class="ticket">
+    <div class="ticket" data-buscar="depos/out/07325 mundo rio srl salta [448804] 265/50r20 111t es90 xl (255/50r20) [flete y acarreo] flete">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07325</div>
-        <div class="tiempo" style="background:#2ecc71">4 min</div>
+        <div class="tiempo" style="background:#2ecc71">7 min</div>
       </div>
       <div class="cliente">Mundo Rio Srl</div>
       <div class="tags">
@@ -1034,5 +1048,29 @@
     </div></div>
     </div>
   </div>
+  <script>
+    function normalizarBusqueda(s) {
+      return (s || '').toString().normalize('NFD').replace(/[\u0300-\u036f]/g, '').toLowerCase().trim();
+    }
+    function filtrarPanel() {
+      const query = normalizarBusqueda(document.getElementById('buscadorInput').value);
+      const tickets = document.querySelectorAll('.ticket');
+      const resultadoEl = document.getElementById('buscadorResultado');
+      let visibles = 0;
+      tickets.forEach(t => {
+        const data = t.getAttribute('data-buscar') || '';
+        const coincide = query.length === 0 || data.includes(query);
+        t.classList.toggle('oculto', !coincide);
+        t.classList.toggle('resaltado', coincide && query.length > 0);
+        if (coincide) visibles++;
+      });
+      if (query.length === 0) {
+        resultadoEl.style.display = 'none';
+      } else {
+        resultadoEl.style.display = 'block';
+        resultadoEl.textContent = visibles + ' remito(s) encontrado(s)';
+      }
+    }
+  </script>
 </body>
 </html>
