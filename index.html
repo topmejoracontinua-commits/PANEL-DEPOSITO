@@ -6,15 +6,23 @@
 <title>Panel de Depósito - Top Neumáticos</title>
 <style>
   * { box-sizing: border-box; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #1a1a2e; margin: 0; padding: 24px; color: white; }
+  body {
+    font-family: 'Segoe UI', Arial, sans-serif;
+    margin: 0; padding: 24px; color: white;
+    background-image: linear-gradient(rgba(15,15,30,0.88), rgba(15,15,30,0.92)), url('fondo.jpg');
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    min-height: 100vh;
+  }
   .header { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 24px; }
   h1 { margin: 0; font-size: 32px; }
   .meta { color: #aaa; font-size: 16px; }
   .contador-wrap { text-align: right; }
   .contador { font-size: 56px; font-weight: bold; color: #ffb020; line-height: 1; }
   .rutas-section { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 16px; margin-bottom: 24px; }
-  .ruta-card { background: #24243e; border-radius: 12px; padding: 16px; }
-  .ruta-informativa { background: #1e2a38; }
+  .ruta-card { background: rgba(36,36,62,0.9); border-radius: 12px; padding: 16px; backdrop-filter: blur(4px); }
+  .ruta-informativa { background: rgba(30,42,56,0.9); }
   .ruta-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; }
   .ruta-nombre { font-size: 18px; font-weight: bold; }
   .ruta-detalle-grande { font-size: 15px; color: #cdd; }
@@ -23,13 +31,13 @@
   .ruta-barra-fondo { background: #383858; height: 20px; border-radius: 10px; overflow: hidden; }
   .ruta-barra { height: 100%; transition: width 0.3s; }
   .ruta-detalle { font-size: 13px; color: #aaa; margin-top: 6px; }
-  .pendientes-ruta { background: #3a2a1a; border: 1px solid #a05a1a; border-radius: 12px; padding: 16px; margin-bottom: 32px; }
+  .pendientes-ruta { background: rgba(58,42,26,0.92); border: 1px solid #a05a1a; border-radius: 12px; padding: 16px; margin-bottom: 32px; }
   .pendientes-ruta h3 { margin: 0 0 12px 0; font-size: 15px; color: #ffb020; }
   .pendientes-ruta table { width: 100%; border-collapse: collapse; font-size: 13px; }
   .pendientes-ruta th { text-align: left; color: #ffb020; padding: 6px 8px; border-bottom: 1px solid #a05a1a; }
   .pendientes-ruta td { padding: 6px 8px; border-bottom: 1px solid #3a3a5a; }
   .tablero { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; align-items: start; }
-  .columna { background: #16162a; border-radius: 12px; padding: 12px; min-height: 200px; }
+  .columna { background: rgba(22,22,42,0.85); border-radius: 12px; padding: 12px; min-height: 200px; backdrop-filter: blur(4px); }
   .columna-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 3px solid; padding-bottom: 10px; margin-bottom: 12px; }
   .columna-titulo { font-size: 17px; font-weight: bold; }
   .columna-count { background: #333; padding: 2px 10px; border-radius: 10px; font-size: 13px; }
@@ -38,7 +46,7 @@
   .ticket { background: #fff; color: #1a1a2e; border-radius: 12px; padding: 14px; box-shadow: 0 4px 12px rgba(0,0,0,0.3); }
   .ticket-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .remito { font-size: 20px; font-weight: 900; }
-  .tiempo { color: white; font-weight: bold; padding: 3px 10px; border-radius: 16px; font-size: 13px; }
+  .tiempo { color: white; font-weight: bold; padding: 3px 10px; border-radius: 16px; font-size: 13px; white-space: nowrap; }
   .cliente { font-size: 14px; font-weight: 600; color: #333; margin-bottom: 6px; }
   .tags { margin-bottom: 10px; }
   .ciudad-tag { display: inline-block; background: #eee; color: #555; font-size: 11px; padding: 2px 8px; border-radius: 8px; margin-right: 6px; }
@@ -53,7 +61,7 @@
   <div class="header">
     <div>
       <h1>Panel de Depósito</h1>
-      <div class="meta">05/08/2026 — Actualizado 11:12 hs</div>
+      <div class="meta">05/08/2026 — Actualizado 11:16 hs</div>
     </div>
     <div class="contador-wrap">
       <div class="contador">70</div>
@@ -120,7 +128,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07286</div>
-        <div class="tiempo" style="background:#e74c3c">1532 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 2h</div>
       </div>
       <div class="cliente">Silvera Romero Gustavo Guillermo</div>
       <div class="tags">
@@ -132,7 +140,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07287</div>
-        <div class="tiempo" style="background:#e74c3c">1531 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 2h</div>
       </div>
       <div class="cliente">Pitsch Martin</div>
       <div class="tags">
@@ -144,7 +152,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07249</div>
-        <div class="tiempo" style="background:#e74c3c">3046 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d 3h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -156,7 +164,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07253</div>
-        <div class="tiempo" style="background:#e74c3c">2993 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d 2h</div>
       </div>
       <div class="cliente">Aromi Jose Gustavo</div>
       <div class="tags">
@@ -168,7 +176,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07297</div>
-        <div class="tiempo" style="background:#e74c3c">1343 min</div>
+        <div class="tiempo" style="background:#f39c12">22h 27m</div>
       </div>
       <div class="cliente">Romaniuk Pedro Antonio</div>
       <div class="tags">
@@ -180,7 +188,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07262</div>
-        <div class="tiempo" style="background:#e74c3c">2886 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d</div>
       </div>
       <div class="cliente">Transporte Piscis Srl</div>
       <div class="tags">
@@ -192,7 +200,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07271</div>
-        <div class="tiempo" style="background:#e74c3c">2800 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 23h</div>
       </div>
       <div class="cliente">Fernandez Carlos Daniel</div>
       <div class="tags">
@@ -204,7 +212,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07276</div>
-        <div class="tiempo" style="background:#e74c3c">2579 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 19h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -216,7 +224,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07280</div>
-        <div class="tiempo" style="background:#e74c3c">2545 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 18h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -228,7 +236,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07285</div>
-        <div class="tiempo" style="background:#e74c3c">1584 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 2h</div>
       </div>
       <div class="cliente">Grade Hugo Hector</div>
       <div class="tags">
@@ -240,7 +248,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07295</div>
-        <div class="tiempo" style="background:#e74c3c">1408 min</div>
+        <div class="tiempo" style="background:#f39c12">23h 33m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), Deposito Corrientes</div>
       <div class="tags">
@@ -252,7 +260,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07314</div>
-        <div class="tiempo" style="background:#f39c12">55 min</div>
+        <div class="tiempo" style="background:#f39c12">1h</div>
       </div>
       <div class="cliente">Roleri Roman Hernan</div>
       <div class="tags">
@@ -264,7 +272,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07315</div>
-        <div class="tiempo" style="background:#f39c12">55 min</div>
+        <div class="tiempo" style="background:#2ecc71">59 min</div>
       </div>
       <div class="cliente">La Estación srl</div>
       <div class="tags">
@@ -276,7 +284,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07308</div>
-        <div class="tiempo" style="background:#e74c3c">72 min</div>
+        <div class="tiempo" style="background:#f39c12">1h 16m</div>
       </div>
       <div class="cliente">Zeiter Alberto Sebastian</div>
       <div class="tags">
@@ -288,7 +296,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07316</div>
-        <div class="tiempo" style="background:#f39c12">48 min</div>
+        <div class="tiempo" style="background:#2ecc71">52 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
       <div class="tags">
@@ -308,7 +316,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07310</div>
-        <div class="tiempo" style="background:#e74c3c">70 min</div>
+        <div class="tiempo" style="background:#f39c12">1h 15m</div>
       </div>
       <div class="cliente">Gonzalez Jose Ramon</div>
       <div class="tags">
@@ -320,7 +328,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07317</div>
-        <div class="tiempo" style="background:#f39c12">40 min</div>
+        <div class="tiempo" style="background:#2ecc71">44 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -332,7 +340,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07318</div>
-        <div class="tiempo" style="background:#2ecc71">18 min</div>
+        <div class="tiempo" style="background:#2ecc71">23 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
       <div class="tags">
@@ -344,7 +352,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07320</div>
-        <div class="tiempo" style="background:#2ecc71">14 min</div>
+        <div class="tiempo" style="background:#2ecc71">18 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), Deposito Corrientes</div>
       <div class="tags">
@@ -356,7 +364,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07319</div>
-        <div class="tiempo" style="background:#2ecc71">14 min</div>
+        <div class="tiempo" style="background:#2ecc71">18 min</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -376,7 +384,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07251</div>
-        <div class="tiempo" style="background:#e74c3c">3002 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d 2h</div>
       </div>
       <div class="cliente">Bloch Ricardo</div>
       <div class="tags">
@@ -388,7 +396,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07248</div>
-        <div class="tiempo" style="background:#e74c3c">3064 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d 3h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -400,7 +408,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07250</div>
-        <div class="tiempo" style="background:#e74c3c">3044 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d 3h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -412,7 +420,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07252</div>
-        <div class="tiempo" style="background:#e74c3c">2999 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d 2h</div>
       </div>
       <div class="cliente">Gomez Hector Rito</div>
       <div class="tags">
@@ -424,7 +432,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07254</div>
-        <div class="tiempo" style="background:#e74c3c">2951 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d 1h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP POSADAS</div>
       <div class="tags">
@@ -436,7 +444,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07255</div>
-        <div class="tiempo" style="background:#e74c3c">2950 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d 1h</div>
       </div>
       <div class="cliente">Robert Bosch Argentina Industrial sa</div>
       <div class="tags">
@@ -448,7 +456,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07264</div>
-        <div class="tiempo" style="background:#e74c3c">2858 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 24h</div>
       </div>
       <div class="cliente">Kloster Jorge Luis</div>
       <div class="tags">
@@ -460,7 +468,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07258</div>
-        <div class="tiempo" style="background:#e74c3c">2894 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d</div>
       </div>
       <div class="cliente">Kloster Jorge Luis</div>
       <div class="tags">
@@ -472,7 +480,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07265</div>
-        <div class="tiempo" style="background:#e74c3c">2857 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 24h</div>
       </div>
       <div class="cliente">Kloster Jorge Luis</div>
       <div class="tags">
@@ -484,7 +492,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07259</div>
-        <div class="tiempo" style="background:#e74c3c">2891 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d</div>
       </div>
       <div class="cliente">Kloster Jorge Luis</div>
       <div class="tags">
@@ -496,7 +504,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07266</div>
-        <div class="tiempo" style="background:#e74c3c">2857 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 24h</div>
       </div>
       <div class="cliente">Romaniuk Pedro Antonio</div>
       <div class="tags">
@@ -508,7 +516,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07260</div>
-        <div class="tiempo" style="background:#e74c3c">2890 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d</div>
       </div>
       <div class="cliente">Romaniuk Pedro Antonio</div>
       <div class="tags">
@@ -520,7 +528,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07261</div>
-        <div class="tiempo" style="background:#e74c3c">2888 min</div>
+        <div class="tiempo" style="background:#e74c3c">2d</div>
       </div>
       <div class="cliente">De Misiones srl</div>
       <div class="tags">
@@ -532,7 +540,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07263</div>
-        <div class="tiempo" style="background:#e74c3c">2871 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 24h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -544,7 +552,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07269</div>
-        <div class="tiempo" style="background:#e74c3c">2845 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 23h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), Deposito Corrientes</div>
       <div class="tags">
@@ -556,7 +564,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07267</div>
-        <div class="tiempo" style="background:#e74c3c">2851 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 24h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), Deposito Corrientes</div>
       <div class="tags">
@@ -568,7 +576,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07268</div>
-        <div class="tiempo" style="background:#e74c3c">2846 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 24h</div>
       </div>
       <div class="cliente">Lkf SRL</div>
       <div class="tags">
@@ -580,7 +588,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07270</div>
-        <div class="tiempo" style="background:#e74c3c">2831 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 23h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), Deposito Corrientes</div>
       <div class="tags">
@@ -592,7 +600,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07272</div>
-        <div class="tiempo" style="background:#e74c3c">2756 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 22h</div>
       </div>
       <div class="cliente">DOÑA ELENA S.A.</div>
       <div class="tags">
@@ -604,7 +612,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07273</div>
-        <div class="tiempo" style="background:#e74c3c">2700 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 21h</div>
       </div>
       <div class="cliente">Mh Turismo SRL</div>
       <div class="tags">
@@ -616,7 +624,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07274</div>
-        <div class="tiempo" style="background:#e74c3c">2700 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 21h</div>
       </div>
       <div class="cliente">Mh Turismo SRL</div>
       <div class="tags">
@@ -628,7 +636,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07275</div>
-        <div class="tiempo" style="background:#e74c3c">2694 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 21h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP POSADAS</div>
       <div class="tags">
@@ -640,7 +648,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07277</div>
-        <div class="tiempo" style="background:#e74c3c">2554 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 19h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP POSADAS</div>
       <div class="tags">
@@ -652,7 +660,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07279</div>
-        <div class="tiempo" style="background:#e74c3c">2549 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 19h</div>
       </div>
       <div class="cliente">La Estación srl</div>
       <div class="tags">
@@ -664,7 +672,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07288</div>
-        <div class="tiempo" style="background:#e74c3c">1529 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 2h</div>
       </div>
       <div class="cliente">Mouls Marcelo Javier</div>
       <div class="tags">
@@ -676,7 +684,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07281</div>
-        <div class="tiempo" style="background:#e74c3c">2523 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 18h</div>
       </div>
       <div class="cliente">Mouls Marcelo Javier</div>
       <div class="tags">
@@ -688,7 +696,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07282</div>
-        <div class="tiempo" style="background:#e74c3c">2501 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 18h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -700,7 +708,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07283</div>
-        <div class="tiempo" style="background:#e74c3c">2437 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 17h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -712,7 +720,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07284</div>
-        <div class="tiempo" style="background:#e74c3c">1614 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 3h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -724,7 +732,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07289</div>
-        <div class="tiempo" style="background:#e74c3c">1486 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 1h</div>
       </div>
       <div class="cliente">Vera Matias Daniel</div>
       <div class="tags">
@@ -736,7 +744,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07290</div>
-        <div class="tiempo" style="background:#e74c3c">1471 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d 1h</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
       <div class="tags">
@@ -748,7 +756,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07291</div>
-        <div class="tiempo" style="background:#e74c3c">1455 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
       <div class="tags">
@@ -760,7 +768,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07292</div>
-        <div class="tiempo" style="background:#e74c3c">1438 min</div>
+        <div class="tiempo" style="background:#e74c3c">1d</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
       <div class="tags">
@@ -772,7 +780,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07293</div>
-        <div class="tiempo" style="background:#e74c3c">1431 min</div>
+        <div class="tiempo" style="background:#f39c12">23h 55m</div>
       </div>
       <div class="cliente">Gutierrez Gustavo Alberto</div>
       <div class="tags">
@@ -784,7 +792,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07294</div>
-        <div class="tiempo" style="background:#e74c3c">1418 min</div>
+        <div class="tiempo" style="background:#f39c12">23h 42m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -796,7 +804,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07296</div>
-        <div class="tiempo" style="background:#e74c3c">1391 min</div>
+        <div class="tiempo" style="background:#f39c12">23h 16m</div>
       </div>
       <div class="cliente">Ingar S.A. Proobra S.A. E Hidrelco S.R.L. U. T. E.</div>
       <div class="tags">
@@ -808,7 +816,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07298</div>
-        <div class="tiempo" style="background:#e74c3c">1215 min</div>
+        <div class="tiempo" style="background:#f39c12">20h 19m</div>
       </div>
       <div class="cliente">Municipalidad De San Vicente</div>
       <div class="tags">
@@ -820,7 +828,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07299</div>
-        <div class="tiempo" style="background:#e74c3c">1192 min</div>
+        <div class="tiempo" style="background:#f39c12">19h 56m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -832,7 +840,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07300</div>
-        <div class="tiempo" style="background:#e74c3c">1183 min</div>
+        <div class="tiempo" style="background:#f39c12">19h 47m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP ELDORADO</div>
       <div class="tags">
@@ -844,7 +852,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07301</div>
-        <div class="tiempo" style="background:#e74c3c">1171 min</div>
+        <div class="tiempo" style="background:#f39c12">19h 35m</div>
       </div>
       <div class="cliente">Jakow Ricardo Daniel</div>
       <div class="tags">
@@ -856,7 +864,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07302</div>
-        <div class="tiempo" style="background:#e74c3c">1137 min</div>
+        <div class="tiempo" style="background:#f39c12">19h 1m</div>
       </div>
       <div class="cliente">Torres E Hijos Sa</div>
       <div class="tags">
@@ -868,7 +876,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07303</div>
-        <div class="tiempo" style="background:#e74c3c">1132 min</div>
+        <div class="tiempo" style="background:#f39c12">18h 56m</div>
       </div>
       <div class="cliente">Roleri Roman Hernan</div>
       <div class="tags">
@@ -880,7 +888,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07304</div>
-        <div class="tiempo" style="background:#e74c3c">1115 min</div>
+        <div class="tiempo" style="background:#f39c12">18h 39m</div>
       </div>
       <div class="cliente">La Estación srl</div>
       <div class="tags">
@@ -892,7 +900,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07305</div>
-        <div class="tiempo" style="background:#e74c3c">152 min</div>
+        <div class="tiempo" style="background:#f39c12">2h 37m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP POSADAS</div>
       <div class="tags">
@@ -904,7 +912,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07306</div>
-        <div class="tiempo" style="background:#e74c3c">122 min</div>
+        <div class="tiempo" style="background:#f39c12">2h 6m</div>
       </div>
       <div class="cliente">Top Neumaticos S.R.L. (NO USAR), TOP NEUMATICOS S.R.L., TOP OBERA</div>
       <div class="tags">
@@ -916,7 +924,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07307</div>
-        <div class="tiempo" style="background:#e74c3c">80 min</div>
+        <div class="tiempo" style="background:#f39c12">1h 24m</div>
       </div>
       <div class="cliente">Stefan Hector Enrique</div>
       <div class="tags">
@@ -928,7 +936,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07309</div>
-        <div class="tiempo" style="background:#e74c3c">71 min</div>
+        <div class="tiempo" style="background:#f39c12">1h 16m</div>
       </div>
       <div class="cliente">Gonzalez Jose Ramon</div>
       <div class="tags">
@@ -940,7 +948,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07311</div>
-        <div class="tiempo" style="background:#e74c3c">67 min</div>
+        <div class="tiempo" style="background:#f39c12">1h 11m</div>
       </div>
       <div class="cliente">Rojas Aguedo Hernan</div>
       <div class="tags">
@@ -952,7 +960,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07312</div>
-        <div class="tiempo" style="background:#e74c3c">66 min</div>
+        <div class="tiempo" style="background:#f39c12">1h 10m</div>
       </div>
       <div class="cliente">Expreso Del Norte SRL</div>
       <div class="tags">
@@ -964,7 +972,7 @@
     <div class="ticket">
       <div class="ticket-header">
         <div class="remito">DePos/OUT/07313</div>
-        <div class="tiempo" style="background:#e74c3c">60 min</div>
+        <div class="tiempo" style="background:#f39c12">1h 5m</div>
       </div>
       <div class="cliente">Municipalidad De San Pedro</div>
       <div class="tags">
